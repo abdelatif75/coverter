@@ -44,21 +44,41 @@ public class Main extends JFrame {
                         JFrame newFrame = new JFrame("new window");
                         JLabel label1;
                         JLabel label2;
+                        JLabel label3;
 
                         switch (check){
+                            case "decimal":
+                                label1 = new JLabel("binary: "+Integer.toBinaryString(Integer.parseInt(textField,10)));
+                                label1.setBounds(50,50,200,30);
+                                label2 = new JLabel("hexadecimal: "+Integer.toHexString(Integer.parseInt(textField,10)));
+                                label2.setBounds(50,100,200,30);
+                                label3 = new JLabel("octal: "+Integer.toOctalString(Integer.parseInt(textField, 10)));
+                                label3.setBounds(50,150,200,30);
+                                newFrame.add(label3);
+                                newFrame.add(label1);
+                                newFrame.add(label2);
+                                newFrame.add(label3);
+                                break;
                             case "octal":
                                 label1 = new JLabel("binary: "+Integer.toBinaryString(Integer.parseInt(textField,8)));
                                 label1.setBounds(50,50,200,30);
                                 label2 = new JLabel("hexadecimal: "+Integer.toHexString(Integer.parseInt(textField,8)));
                                 label2.setBounds(50,100,200,30);
+                                label3 = new JLabel("decimal: "+Integer.parseInt(textField,8));
+                                label3.setBounds(50,150,200,30);
+                                newFrame.add(label3);
                                 newFrame.add(label1);
                                 newFrame.add(label2);
+                                newFrame.add(label3);
                                 break;
                             case "hexadecimal":
                                 label1 = new JLabel("binary: "+Integer.toBinaryString(Integer.parseInt(textField, 16)));
                                 label1.setBounds(50,50,200,30);
                                 label2 = new JLabel("octal: "+Integer.toOctalString(Integer.parseInt(textField,16)));
                                 label2.setBounds(50,100,200,30);
+                                label3 = new JLabel("decimal: "+Integer.toString(Integer.parseInt(textField,16)));
+                                label3.setBounds(50,150,200,30);
+                                newFrame.add(label3);
                                 newFrame.add(label1);
                                 newFrame.add(label2);
                                 break;
@@ -67,12 +87,15 @@ public class Main extends JFrame {
                                 label1.setBounds(50,50,200,30);
                                 label2 = new JLabel("octal: "+Integer.toOctalString(Integer.parseInt(textField,2)));
                                 label2.setBounds(50,100,200,30);
+                                label3 = new JLabel("decimal: "+Integer.toString(Integer.parseInt(textField,2)));
+                                label3.setBounds(50,150,200,30);
+                                newFrame.add(label3);
                                 newFrame.add(label1);
                                 newFrame.add(label2);
                                 break;
                         }
 
-                        newFrame.setSize(300,200);
+                        newFrame.setSize(300,400);
                         newFrame.setLayout(null);
                         newFrame.setVisible(true);
                         newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -86,7 +109,7 @@ public class Main extends JFrame {
         add(buttonPanel, BorderLayout.CENTER);
 
         //--------------------------------
-        JPanel checkPanel = new JPanel(new GridLayout(1, 3));
+        JPanel checkPanel = new JPanel(new GridLayout(1, 4));
         ButtonGroup group = new ButtonGroup();
 
         JRadioButton checkBox1 = new JRadioButton("octal");
@@ -104,6 +127,11 @@ public class Main extends JFrame {
         group.add(checkBox3);
         checkPanel.add(checkBox3);
 
+        JRadioButton checkBox4 = new JRadioButton("decimal");
+        checkBox4.setBounds(100, 250, 150, 50);
+        group.add(checkBox4);
+        checkPanel.add(checkBox4);
+
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,6 +143,17 @@ public class Main extends JFrame {
                         for (int i = 0; i < buttonContent.length; i++){
                             buttons[i].setText(buttonContent[i]+"");
                         }
+                        break;
+                    case "decimal":
+                        inputField.setText("");
+                        textField = "";
+                        for (int i = 0; i < buttonContent.length; i++){
+                            buttons[i].setText(buttonContent[i]+"");
+                        }
+                        for(int i = 0; i < 6; i++){
+                            buttons[i].setText(" ");
+                        }
+
                         break;
                     case "octal":
                         inputField.setText("");
@@ -146,6 +185,7 @@ public class Main extends JFrame {
         checkBox1.addActionListener(listener);
         checkBox2.addActionListener(listener);
         checkBox3.addActionListener(listener);
+        checkBox4.addActionListener(listener);
 
 
         add(checkPanel, BorderLayout.PAGE_END);
